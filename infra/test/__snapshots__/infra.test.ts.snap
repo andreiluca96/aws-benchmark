@@ -10,68 +10,25 @@ exports[`matches the snapshot 1`] = `
     },
   },
   "Resources": {
-    "InfraQueue969BB8E7": {
+    "BenchmarkingResourcesBenchMarkEventBus062270BA": {
+      "Properties": {
+        "Name": "eu-central-1-benchmark-event-bus",
+      },
+      "Type": "AWS::Events::EventBus",
+    },
+    "BenchmarkingResourcesBenchmarkQueue6E3D0BE7": {
       "DeletionPolicy": "Delete",
       "Properties": {
+        "QueueName": "eu-central-1-benchmark-queue",
         "VisibilityTimeout": 300,
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "InfraQueueMyTestStackInfraTopicE77677AAF474AAC7": {
-      "DependsOn": [
-        "InfraQueuePolicyE88EDBDB",
-      ],
+    "BenchmarkingResourcesBenchmarkTopic10182B2C": {
       "Properties": {
-        "Endpoint": {
-          "Fn::GetAtt": [
-            "InfraQueue969BB8E7",
-            "Arn",
-          ],
-        },
-        "Protocol": "sqs",
-        "TopicArn": {
-          "Ref": "InfraTopic44770A4E",
-        },
+        "TopicName": "eu-central-1-benchmark-topic",
       },
-      "Type": "AWS::SNS::Subscription",
-    },
-    "InfraQueuePolicyE88EDBDB": {
-      "Properties": {
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sqs:SendMessage",
-              "Condition": {
-                "ArnEquals": {
-                  "aws:SourceArn": {
-                    "Ref": "InfraTopic44770A4E",
-                  },
-                },
-              },
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "sns.amazonaws.com",
-              },
-              "Resource": {
-                "Fn::GetAtt": [
-                  "InfraQueue969BB8E7",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Queues": [
-          {
-            "Ref": "InfraQueue969BB8E7",
-          },
-        ],
-      },
-      "Type": "AWS::SQS::QueuePolicy",
-    },
-    "InfraTopic44770A4E": {
       "Type": "AWS::SNS::Topic",
     },
   },
