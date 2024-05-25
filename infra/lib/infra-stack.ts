@@ -5,17 +5,24 @@ import * as sqs from 'aws-cdk-lib/aws-sqs';
 import { Construct } from 'constructs';
 import { BenchmarkingResources } from './constructs/benchmarking-resources'
 import { Backend } from './constructs/backend'
+import { FrontendConstruct } from './constructs/frontend';
 
 export class InfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
+		const region = 'eu-central-1';
+
 		new BenchmarkingResources(this, 'BenchmarkingResources', {
-			 prefix: 'eu-central-1'
-		})
+			 prefix: region
+	  })
 
 		new Backend(this, 'BackendResources', {
-			prefix: `eu-central-1`
+			prefix: region 
 		})
+
+		new FrontendConstruct(this, 'FrontendConstruct', {
+			prefix: region
+		});
   }
 }
