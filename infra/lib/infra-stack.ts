@@ -14,7 +14,7 @@ export class InfraStack extends Stack {
 			 prefix: 'eu-central-1'
 		})
 
-		new Backend(this, 'BackendStack', {
+		new Backend(this, 'BackendResources', {
 			prefix: `eu-central-1`
 		})
   }

@@ -3,10 +3,10 @@
 exports[`matches the snapshot 1`] = `
 {
   "Outputs": {
-    "BackendStackTheUrl676A826B": {
+    "BackendResourcesTheUrlDE242F50": {
       "Value": {
         "Fn::GetAtt": [
-          "BackendStackBenchmarkRunnerFunctionUrl7649C02A",
+          "BackendResourcesBenchmarkRunnerFunctionUrlEEC75B51",
           "FunctionUrl",
         ],
       },
@@ -20,42 +20,42 @@ exports[`matches the snapshot 1`] = `
     },
   },
   "Resources": {
-    "BackendStackBenchmarkRunner50A01B2F": {
+    "BackendResourcesBenchmarkRunner47B6367D": {
       "DependsOn": [
-        "BackendStackBenchmarkRunnerServiceRoleD652C3FA",
+        "BackendResourcesBenchmarkRunnerServiceRoleD04A7008",
       ],
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "285f18deb4518e294510a596e92315855ec54774ab3f6807e363605f5781da39.zip",
+          "S3Key": "04fffe46efd08c87da3b54d6774a6114b25902c2b4e382781831ff9c6117b1ea.zip",
         },
-        "FunctionName": "rust-based-aws-lambda-example",
-        "Handler": "does_not_matter",
+        "FunctionName": "eu-central-1-benchmark-runner-lambda",
+        "Handler": "bootstrap",
         "Role": {
           "Fn::GetAtt": [
-            "BackendStackBenchmarkRunnerServiceRoleD652C3FA",
+            "BackendResourcesBenchmarkRunnerServiceRoleD04A7008",
             "Arn",
           ],
         },
-        "Runtime": "provided.al2",
+        "Runtime": "provided.al2023",
       },
       "Type": "AWS::Lambda::Function",
     },
-    "BackendStackBenchmarkRunnerFunctionUrl7649C02A": {
+    "BackendResourcesBenchmarkRunnerFunctionUrlEEC75B51": {
       "Properties": {
         "AuthType": "NONE",
         "TargetFunctionArn": {
           "Fn::GetAtt": [
-            "BackendStackBenchmarkRunner50A01B2F",
+            "BackendResourcesBenchmarkRunner47B6367D",
             "Arn",
           ],
         },
       },
       "Type": "AWS::Lambda::Url",
     },
-    "BackendStackBenchmarkRunnerServiceRoleD652C3FA": {
+    "BackendResourcesBenchmarkRunnerServiceRoleD04A7008": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -86,12 +86,12 @@ exports[`matches the snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "BackendStackBenchmarkRunnerinvokefunctionurl99386C95": {
+    "BackendResourcesBenchmarkRunnerinvokefunctionurlA121688A": {
       "Properties": {
         "Action": "lambda:InvokeFunctionUrl",
         "FunctionName": {
           "Fn::GetAtt": [
-            "BackendStackBenchmarkRunner50A01B2F",
+            "BackendResourcesBenchmarkRunner47B6367D",
             "Arn",
           ],
         },

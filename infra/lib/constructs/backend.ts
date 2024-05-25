@@ -15,9 +15,9 @@ export class Backend extends Construct {
 
 		const benchmarkRunner = new lambda.Function(this, 'BenchmarkRunner', {
 			code: lambda.Code.fromAsset(path.join(__dirname, '..', '..', '..', 'backend/benchmark-runner/target/lambda/benchmark-runner')),
-			runtime: lambda.Runtime.PROVIDED_AL2,
-			handler: "does_not_matter",
-			functionName: "rust-based-aws-lambda-example"
+			runtime: lambda.Runtime.PROVIDED_AL2023,
+			handler: "bootstrap",
+			functionName: `${props.prefix}-benchmark-runner-lambda` 
 		})
 
 		const fnUrl = benchmarkRunner.addFunctionUrl({
