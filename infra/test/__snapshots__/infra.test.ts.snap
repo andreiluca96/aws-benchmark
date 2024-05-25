@@ -2,6 +2,16 @@
 
 exports[`matches the snapshot 1`] = `
 {
+  "Outputs": {
+    "BackendStackTheUrl676A826B": {
+      "Value": {
+        "Fn::GetAtt": [
+          "BackendStackBenchmarkRunnerFunctionUrl7649C02A",
+          "FunctionUrl",
+        ],
+      },
+    },
+  },
   "Parameters": {
     "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
@@ -10,6 +20,86 @@ exports[`matches the snapshot 1`] = `
     },
   },
   "Resources": {
+    "BackendStackBenchmarkRunner50A01B2F": {
+      "DependsOn": [
+        "BackendStackBenchmarkRunnerServiceRoleD652C3FA",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "285f18deb4518e294510a596e92315855ec54774ab3f6807e363605f5781da39.zip",
+        },
+        "FunctionName": "rust-based-aws-lambda-example",
+        "Handler": "does_not_matter",
+        "Role": {
+          "Fn::GetAtt": [
+            "BackendStackBenchmarkRunnerServiceRoleD652C3FA",
+            "Arn",
+          ],
+        },
+        "Runtime": "provided.al2",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "BackendStackBenchmarkRunnerFunctionUrl7649C02A": {
+      "Properties": {
+        "AuthType": "NONE",
+        "TargetFunctionArn": {
+          "Fn::GetAtt": [
+            "BackendStackBenchmarkRunner50A01B2F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Url",
+    },
+    "BackendStackBenchmarkRunnerServiceRoleD652C3FA": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BackendStackBenchmarkRunnerinvokefunctionurl99386C95": {
+      "Properties": {
+        "Action": "lambda:InvokeFunctionUrl",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "BackendStackBenchmarkRunner50A01B2F",
+            "Arn",
+          ],
+        },
+        "FunctionUrlAuthType": "NONE",
+        "Principal": "*",
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
     "BenchmarkingResourcesBenchMarkEventBus062270BA": {
       "Properties": {
         "Name": "eu-central-1-benchmark-event-bus",
